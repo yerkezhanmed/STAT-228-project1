@@ -8,6 +8,6 @@ This project analyzes how Netflix’s content has evolved over time. Using a dat
 - dplyr for data wrangling
 - GitHub Pages for publishing
 
-[View the project as a webpage](https://yerkezhanmed.github.io/stat228-project1/)
+[View the project as a webpage](https://github.com/yerkezhanmed/STAT-228-project1/blob/main/mini_project.html)
 
 
