@@ -1,0 +1,107 @@
+---
+title: "Netflix Trends Uncovered: How Content Evolved Over the Years"
+author: "Yerkezhan Medetbekova"
+date: "25-03-10"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(tidytuesdayR)
+```
+
+## **🎬 🎥Introduction: Is Netflix Changing the Way We Watch?**
+Netflix has transformed the entertainment industry, but how has its content evolved over the years? Are certain genres dominating, and is Netflix producing more content than ever before? In this analysis, we dive into Netflix's extensive catalog to uncover trends in content production and genre popularity.
+
+### **📊📌 What We'll Explore**
+- How has the number of Netflix titles changed over time?
+- Which genres dominate the platform?
+- What insights can we gather about Netflix’s content strategy?
+
+This analysis will provide a **data-driven story📈** about how Netflix's content has evolved and what this means for the future of streaming.
+
+---
+
+## **🗂️Gathering the Data: What’s in Netflix’s Catalog?🎦**
+
+```{r}
+netflix_data <- tidytuesdayR::tt_load(2021, week = 17)$netflix_titles
+```
+
+```{r}
+netflix_clean <- netflix_data %>%
+  filter(!is.na(release_year) & !is.na(type) & !is.na(listed_in)) %>%
+  select(title, release_year, type, listed_in)
+```
+
+``` {r}
+glimpse(netflix_clean)
+```
+
+Netflix’s dataset includes thousands of titles, ranging from blockbuster movies to binge-worthy TV series. Let’s see how the number of releases has changed over time.
+
+---
+
+## ** Are We Getting More Netflix Content Than Ever?🤔⁉️**
+```{r }
+ggplot(netflix_clean, aes(x = release_year)) +
+  geom_bar(fill = "red", alpha = 0.8) +
+  labs(
+    title = "Netflix Content Explosion: Titles Released Over the Years",
+    x = "Release Year",
+    y = "Number of Titles"
+  ) +
+  theme_minimal()
+```
+
+### **📢 🔅Key Insights**
+- **Is Netflix producing more content than ever before?** 
+Yes✅ Netflix has significantly increased its content production over time.
+
+The first chart shows the number of Netflix titles released each year.
+
+Prior to 2000, there were very few releases, but after 2010, the number of titles grew rapidly.
+
+The peak appears around 2018-2020, suggesting that Netflix invested heavily in original content during this period
+- **What trends stand out?** 
+From 2000 to 2010, Netflix started increasing its library but at a slow pace.
+A small fall is visible post-2020, which may be due to pandemic-related production delays or a shift in content strategy.
+
+
+---
+
+## **🎭 What Are the Most Popular Netflix Genres?**
+```{r genre_distribution, message=FALSE, warning=FALSE}
+netflix_genres <- netflix_clean %>%
+  separate_rows(listed_in, sep = ", ") %>%
+  count(listed_in, sort = TRUE)
+
+ggplot(head(netflix_genres, 10), aes(y = reorder(listed_in, n), x = n)) +
+  geom_bar(stat = "identity", fill = "black", alpha = 0.8) +
+  labs(
+    title = "Top 10 Most Common Netflix Genres",
+    x = "Number of Titles",
+    y = "Genre"
+  ) +
+  theme_minimal()
+```
+
+### **📢 Key Insights**
+- **Which genres dominate Netflix?** 
+This chart chart displays the top 10 most common Netflix genres.
+International content is leading, showing Netflix’s global expansion strategy.Then it goes
+Dramas & Comedies, indicating their popularity across diverse audiences.
+
+- **Are some genres growing more than others?** 
+Documentaries & Action/Adventure genres are also prominent, showing Netflix’s expansion beyond scripted dramas.
+Romantic Movies & Children’s content appear in the lower half, suggesting that these genres are less dominant in the Netflix catalog.
+---
+
+## **🎬💿 What Does This Mean for the Future of Netflix?**
+### **🚀 Takeaways:**
+✔ Netflix has **expanded content production significantly** over the years.  
+✔ Certain genres **dominate the platform**, indicating trends in audience demand.  
+✔ A peak in releases around 2018-2020 aligns with Netflix Originals' expansion.
+
+
+### ** Thank you so much for reading my blog post ! What’s your favorite Netflix genre? Let me know in the comments! 😁❤️**
